@@ -3,7 +3,7 @@ import featurebg from '../../../assets/featurebg.jpg'
 import posterprice from '../../../assets/posterprice.jpg'
 import { PiDownloadSimpleBold } from "react-icons/pi";
 
-
+//add comments
 function Feature() {
     return (
 
