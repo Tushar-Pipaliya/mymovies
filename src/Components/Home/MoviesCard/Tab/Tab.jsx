@@ -181,7 +181,7 @@ export default function Show() {
   const [activeTab, setActiveTab] = useState("TV Show");
 
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen p-4">
       {/* Title Section */}
       <div className="space-y-8">
         <div className="px-4 md:w-1/2 mb-14">
