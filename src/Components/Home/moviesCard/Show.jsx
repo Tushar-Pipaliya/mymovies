@@ -1,45 +1,7 @@
 import React, { useState } from "react";
-import { MdAccessTime } from "react-icons/md";
-import { FaThumbsUp } from "react-icons/fa";
+import Card from "../moviesData/Card.jsx";
+import Buttontab from "./Buttontab.jsx";
 
-
-function Tab({ title, year, duration, rating, quality, image }) {
-  return (
-    <div className="overflow-hidden shadow-lg cursor-pointer">
-      <div className="relative">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover rounded hover:scale-105 transition-transform duration-300"
-        />
-      </div>
-      <div className="p-3">
-        <div className="text-white font-semibold truncate flex justify-between">
-          <h3>{title}</h3>
-          <span className="text-primary">{year}</span>
-        </div>
-
-        <div className="text-white pt-2 text-xs flex justify-between">
-          <div>
-            <span className="bg-transparent font-bold border-2 border-white text-primary px-2 pt-[2px] pb-[2px]">
-              {quality}
-            </span>
-          </div>
-          <div className="flex gap-3 text-[#bcbcbc] text-sm font-bold">
-            <span className="flex items-center">
-              <MdAccessTime className="mr-2 text-primary font-bold" />
-              {duration} min
-            </span>
-            <span className="flex items-center">
-              <FaThumbsUp className="mr-2 text-primary" />
-              {rating}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 // Categories
 const movies = [
   {
@@ -176,48 +138,31 @@ const movies = [
   },
 ];
 
-// Main Component with Tab Buttons
+
 export default function Show() {
   const [activeTab, setActiveTab] = useState("TV Show");
 
   return (
-    <div className="min-h-screen p-4">
-      {/* Title Section */}
-      <div className="space-y-8">
-        <div className="px-4 md:w-1/2 mb-14">
-          <span className="block leading-none text-xs uppercase font-medium relative mb-3 tracking-wide text-primary">
-            ONLINE STREAMING
-          </span>
-          <h2 className="mb-0 text-3xl md:text-4xl text-white font-bold">
-            Upcoming Movies
-          </h2>
-        </div>
+    <div className="min-h-screen p-4 space-y-8">
+      {/* Tab Buttons */}
+      <div className="flex items-center justify-center gap-5 mb-10">
+        {movies.map((category) => (
+          <Buttontab
+            key={category.tabName}
+            label={category.tabName}
+            isActive={activeTab === category.tabName}
+            onClick={() => setActiveTab(category.tabName)}
+          />
+        ))}
+      </div>
 
-        {/* Tab Buttons */}
-        <div className="flex items-center justify-center gap-5 mb-10">
-          {movies.map((category) => (
-            <button
-              key={category.tabName}
-              className={`px-8 py-2 rounded-full font-semibold border-2 text-sm  transition duration-300
-                ${activeTab === category.tabName
-                  ? "bg-primary text-black border-primary"
-                  : "bg-transparent text-white border-primary hover:bg-primary hover:text-black"
-                }`}
-              onClick={() => setActiveTab(category.tabName)}
-            >
-              {category.tabName}
-            </button>
+      {/* Movies Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {movies
+          .find((cat) => cat.tabName === activeTab)
+          ?.items.map((movie, index) => (
+            <Card key={index} {...movie} />
           ))}
-        </div>
-
-        {/* Movies Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {movies
-            .find((cat) => cat.tabName === activeTab)
-            ?.items.map((movie, index) => (
-              <Tab key={index} {...movie} />
-            ))}
-        </div>
       </div>
     </div>
   );

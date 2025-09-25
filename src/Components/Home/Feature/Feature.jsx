@@ -29,7 +29,7 @@ function Feature() {
                         </div>
                     </div>
 
-{/* Feature */}
+                    {/* Feature */}
                     <div className="md:w-1/2 px-4">
                         <div className="pl-10">
                             <div className="pr-24  mb-5">

@@ -40,7 +40,7 @@ function Header() {
             </ul>
           </div>
           <div>
-            <Link>
+            <Link  to="https://www.youtube.com/watch?v=9FUd-D4FWjw" target="_blank">
               <button className="flex items-center text-base font-bold text-[#e3dfdf] px-9 py-4 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase">
                 <BsFillCaretRightFill className=' mr-2 text-base'/>
                 Watch now
