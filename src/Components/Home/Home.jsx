@@ -5,8 +5,9 @@ import Feature from './Feature/Feature.jsx'
 // import Data from './moviesData/Data.jsx'
 import Rated from './topRated/Rated.jsx'
 import Overview from './Overview/Overview.jsx'
-// import TvSeries from './TvSeries/TvSeries.jsx'
-
+import TvSeries from './TvSeries/TvSeries.jsx'
+import Trial from '../Trial/Trial.jsx'
+import Footer from '../Footer/footer.jsx'
 
 function Home() {
   return (
@@ -16,7 +17,9 @@ function Home() {
       <Feature/>
       <Rated/>
       <Overview/>
-      {/* <TvSeries/> */}
+      <TvSeries/>
+      <Trial/>
+      <Footer/>
     </div>
   )
 }
