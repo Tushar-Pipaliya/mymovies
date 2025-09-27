@@ -8,6 +8,8 @@ import Overview from './Overview/Overview.jsx'
 import TvSeries from './TvSeries/TvSeries.jsx'
 import Trial from '../Trial/Trial.jsx'
 import Footer from '../Footer/footer.jsx'
+import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton.jsx'
+
 
 function Home() {
   return (
@@ -20,6 +22,7 @@ function Home() {
       <TvSeries/>
       <Trial/>
       <Footer/>
+      <ScrollToTopButton/>
     </div>
   )
 }

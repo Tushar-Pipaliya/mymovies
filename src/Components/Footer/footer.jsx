@@ -72,7 +72,7 @@ const Footer = () => (
           {/* Copyright Text */}
           <div className="w-full sm:w-1/2 text-center sm:text-left">
             <p className="text-sm text-[#bcbcbc] font-semibold">
-              Copyright © 2022. All Rights Reserved By <Link to="/" className="text-primary hover:underline">Movflx</Link>
+              Copyright © 2025. All Rights Reserved By <Link to="/" className="text-primary hover:underline">Movflx</Link>
             </p>
           </div>
 
