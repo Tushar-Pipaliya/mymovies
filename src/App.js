@@ -8,10 +8,20 @@ import TvShow from './Components/TvShow/TvShow.jsx';
 import Pricing from './Components/Pricing/Pricing.jsx'
 import Blog from './Components/Blog/Blog.jsx'
 import Contacts from './Components/Contacts/Contacts.jsx'
+import SignUp from './Components/Form/SignUp/SignUp.jsx'
+import Login from './Components/Form/Login/Login.jsx'
 
 function App() {
 
   const router = createBrowserRouter([
+    {
+      path: "SignUp",
+      element: <SignUp />
+    },
+    {
+      path: "Login",
+      element: <Login />
+    },
     {
       path: "/",
       element: <Home />
@@ -32,7 +42,7 @@ function App() {
       path: "/Blog",
       element: <Blog />
     },
-        {
+    {
       path: "/Contacts",
       element: <Contacts />
     },
