@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo.png';
 import { FaSearch } from "react-icons/fa";
 import { GrLanguage } from "react-icons/gr";
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
+
 
 const MenuLinks = [
-    { id: 1, name: 'Home', link: '/' },
+    { id: 1, name: 'Home', link: '/Home' },
     { id: 2, name: 'Movie', link: '/Movie' },
     { id: 3, name: 'Tv Show', link: '/TvShow' },
     { id: 4, name: 'Pricing', link: '/Pricing' },
@@ -15,9 +17,29 @@ const MenuLinks = [
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Retrieve logged-in user data from localStorage
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedinUser"));
+        if (loggedInUser) {
+            setUser(loggedInUser); // Set the logged-in user
+        }
+    }, []);
+
+    const handleLogout = () => {
+        // Remove user and logged-in status from localStorage
+        localStorage.removeItem("loggedinUser");
+        localStorage.setItem("loggedin", false); // Set logged-in status to false
+        setUser(null); // Clear the current user state
+
+        // Redirect to login page
+        navigate("/login");
+    };
 
     return (
-        <div className=" px-4">
+        <div className="px-4">
             <div className="flex justify-between items-center text-secondary uppercase">
                 {/* Logo */}
                 <div className="flex items-center">
@@ -34,7 +56,7 @@ function Navbar() {
                                 <NavLink
                                     to={link}
                                     className={({ isActive }) =>
-                                        `hover:text-primary transition duration-300 cursor-pointer ${isActive ? 'text-primary' : 'text-secondary'}`
+                                        `hover:text-primary transition duration-300 cursor-pointer ${isActive ? 'text-primary' : 'text-secondary'}` 
                                     }
                                 >
                                     {name}
@@ -44,8 +66,8 @@ function Navbar() {
                     </ul>
                 </div>
 
-                {/* Right-side Items (Search, Language, Sign Up) for Desktop */}
-                <div className="font-bold flex gap-8 items-center hidden md:flex">
+                {/* Right-side Items (Search, Language, User Info or Log Out) for Desktop */}
+                <div className="font-bold flex gap-4 items-center hidden md:flex">
                     <div className="text-base flex items-center">
                         <FaSearch />
                     </div>
@@ -60,11 +82,27 @@ function Navbar() {
                         </select>
                     </div>
 
-                    <div>
-                        <button className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase">
-                            Sign Up
-                        </button>
-                    </div>
+                    {/* If user is logged in, show their name and log out button */}
+                    {user ? (
+                        <div className="flex items-center gap-4">
+                            <p className="font-medium normal-case flex items-center"><CgProfile className='mr-1'/>{user.name}</p>
+                            <button
+                                onClick={handleLogout}
+                                className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
+                            >
+                                Log Out
+                            </button>
+                        </div>
+                    ) : (
+                        <div>
+                            <NavLink
+                                to="/login"
+                                className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
+                            >
+                                Log In
+                            </NavLink>
+                        </div>
+                    )}
                 </div>
 
                 {/* Mobile Hamburger Menu */}
@@ -84,7 +122,7 @@ function Navbar() {
                                 <NavLink
                                     to={link}
                                     className={({ isActive }) =>
-                                        `block py-2 px-4 text-lg ${isActive ? 'text-primary' : 'text-white'}`
+                                        `block py-2 px-4 text-lg ${isActive ? 'text-primary' : 'text-white'}` 
                                     }
                                 >
                                     {name}
@@ -109,11 +147,27 @@ function Navbar() {
                             </select>
                         </div>
 
-                        <div>
-                            <button className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase">
-                                Sign Up
-                            </button>
-                        </div>
+                        {/* If user is logged in, show their name and log out button */}
+                        {user ? (
+                            <div className="flex flex-col items-center gap-4">
+                                <p className="text-white">Hello, {user.name}</p>
+                                <button
+                                    onClick={handleLogout}
+                                    className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
+                                >
+                                    Log Out
+                                </button>
+                            </div>
+                        ) : (
+                            <div>
+                                <NavLink
+                                    to="/login"
+                                    className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
+                                >
+                                    Log In
+                                </NavLink>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
