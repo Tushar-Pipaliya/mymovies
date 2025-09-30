@@ -57,7 +57,7 @@ const Signup = () => {
     return (
         <div       className='min-h-screen bg-left w-full bg-cover overflow-hidden'
       style={{ backgroundImage: `url(${formbg})` }}
-      id="Header">>
+      id="Header">
         <NavbarForForm/>
             <div className="flex justify-center items-center min-h-screen   ">
                 <div className="w-full max-w-md   rounded-lg shadow-md">
