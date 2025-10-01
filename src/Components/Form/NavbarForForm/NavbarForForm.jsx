@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import logo from '../../../assets/logo.png';
 import { NavLink } from 'react-router-dom';
-
+ 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+ 
     return (
         <div>
-            <div className="px-4">
+            <div className="py-9">
                 <div className="flex justify-between items-center text-secondary uppercase">
                     {/* Logo */}
                     <div className="flex items-center">
@@ -15,23 +15,25 @@ function Navbar() {
                             <img src={logo} alt="Logo" className="h-10" />
                         </NavLink>
                     </div>
-
+ 
                     {/* Right-side Buttons (Log In & Sign Up) */}
                     <div className="font-bold flex gap-4 items-center">
-                        <NavLink
-                            to="/login"
-                            className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
-                        >
-                            Log In
-                        </NavLink>
+
                         <NavLink
                             to="/"
                             className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
                         >
                             Sign Up
                         </NavLink>
-                    </div>
 
+                                                <NavLink
+                            to="/login"
+                            className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
+                        >
+                            Log In
+                        </NavLink>
+                    </div>
+ 
                     {/* Mobile Hamburger Menu */}
                     <div className="md:hidden flex items-center">
                         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-2xl">
@@ -39,7 +41,7 @@ function Navbar() {
                         </button>
                     </div>
                 </div>
-
+ 
                 {/* Mobile Menu */}
                 {isMobileMenuOpen && (
                     <div className="md:hidden bg-gray-800 text-white py-4">
@@ -51,7 +53,7 @@ function Navbar() {
                                 Log In
                             </NavLink>
                             <NavLink
-                                to="/signup"
+                                to="/"
                                 className="px-8 py-2 bg-transparent text-white font-semibold border-2 border-primary rounded-full hover:bg-primary hover:text-black text-sm transition duration-300 uppercase"
                             >
                                 Sign Up
@@ -63,5 +65,5 @@ function Navbar() {
         </div>
     );
 }
-
+ 
 export default Navbar;

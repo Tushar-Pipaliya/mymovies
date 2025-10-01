@@ -1,65 +1,229 @@
-import React from 'react';
+  import React, { useState } from "react";
+  import { MdAccessTime } from "react-icons/md";
+  import { FaThumbsUp } from "react-icons/fa";
+  import Pagination from "../Movie/Pagination/Pagination";
 
-const MovieCard = ({ title, date, quality, duration, rating, imgSrc, link }) => {
-  return (
-    <div className="col-xl-3 col-lg-4 col-sm-6 grid-item grid-sizer cat-two">
-      <div className="movie-item mb-12">
-        <div className="movie-poster">
-          <a href={link}>
-            <img src={imgSrc} alt={title} className="w-full h-auto rounded-lg" />
-          </a>
-        </div>
-        <div className="movie-content p-4">
-          <div className="top flex justify-between items-center mb-4">
-            <h5 className="title text-xl font-semibold text-gray-900">
-              <a href={link}>{title}</a>
-            </h5>
-            <span className="date text-sm text-gray-600">{date}</span>
+  const MovieGridWithFilter = () => {
+    const [activeFilter, setActiveFilter] = useState("Animation");
+
+    const movies = [
+      {
+        tabName: "Animation",
+        items: [
+          {
+            title: "Women's Day",
+            year: "2025",
+            duration: "150",
+            rating: "3.5",
+            quality: "HD",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster01.jpg",
+          },
+          {
+            title: "The Perfect Match",
+            year: "2022",
+            duration: "128",
+            rating: "4.0",
+            quality: "2K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster02.jpg",
+          },
+          {
+            title: "The Dog Woof",
+            year: "2025",
+            duration: "120",
+            rating: "4.2",
+            quality: "4K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster03.jpg",
+          },
+          {
+            title: "The Easy Reach",
+            year: "2021",
+            duration: "128",
+            rating: "3.8",
+            quality: "4K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster04.jpg",
+          },
+          {
+            title: "Adventure Land",
+            year: "2023",
+            duration: "140",
+            rating: "4.5",
+            quality: "HD",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster05.jpg",
+          },
+          {
+            title: "Love & Life",
+            year: "2020",
+            duration: "115",
+            rating: "3.9",
+            quality: "2K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster06.jpg",
+          },
+          {
+            title: "Ocean Mystery",
+            year: "2019",
+            duration: "132",
+            rating: "4.1",
+            quality: "HD",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster07.jpg",
+          },
+          {
+            title: "Future World",
+            year: "2024",
+            duration: "150",
+            rating: "4.7",
+            quality: "4K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster08.jpg",
+          },
+        ],
+      },
+      {
+        tabName: "Movies",
+        items: [
+          {
+            title: "Planet Earth",
+            year: "2018",
+            duration: "95",
+            rating: "4.6",
+            quality: "HD",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster09.jpg",
+          },
+          {
+            title: "Deep Ocean",
+            year: "2020",
+            duration: "110",
+            rating: "4.3",
+            quality: "2K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster10.jpg",
+          },
+        ],
+      },
+      {
+        tabName: "Anime",
+        items: [
+          {
+            title: "Adventure Land",
+            year: "2023",
+            duration: "140",
+            rating: "4.5",
+            quality: "HD",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster05.jpg",
+          },
+          {
+            title: "Love & Life",
+            year: "2020",
+            duration: "115",
+            rating: "3.9",
+            quality: "2K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster06.jpg",
+          },
+          {
+            title: "Avengers Assemble",
+            year: "2019",
+            duration: "180",
+            rating: "4.8",
+            quality: "4K",
+            image: "https://movflxx.netlify.app/img/poster/ucm_poster05.jpg",
+          },
+        ],
+      },
+    ];
+
+    const handleFilterChange = (filter) => {
+      setActiveFilter(filter);
+    };
+
+    const filteredMovies = movies.find(
+      (category) => category.tabName === activeFilter
+    )?.items || [];
+
+    return (
+      <section className=" px-8 py-28 bg-black">
+        {/* Filter and Title Section */}
+        <div className="flex flex-wrap items-end mb-16">
+          {/* Left Section */}
+          <div className="w-full lg:w-1/2">
+            <div className="text-center lg:text-left">
+              <span className="block leading-none text-xs uppercase font-medium relative mb-3 tracking-wide text-primary">
+                ONLINE STREAMING
+              </span>
+              <h2 className="mb-0 text-3xl md:text-4xl text-white font-bold">
+                New Release Movies
+              </h2>
+            </div>
           </div>
-          <div className="bottom">
-            <ul className="flex items-center space-x-3 text-sm text-gray-700">
-              <li><span className="quality py-1 px-3 bg-gray-200 rounded-md">{quality}</span></li>
-              <li><span className="duration flex items-center"><i className="far fa-clock mr-1"></i>{duration}</span></li>
-              <li><span className="rating flex items-center"><i className="fas fa-thumbs-up mr-1"></i>{rating}</span></li>
-            </ul>
+
+          {/* Right Section with Category Buttons */}
+          <div className="w-full lg:w-1/2 mt-4 lg:mt-0">
+            <div className="flex flex-col items-center lg:items-end">
+              <div className="flex space-x-4 mb-4">
+                {movies.map((category) => (
+                  <button
+                    key={category.tabName}
+                    className={`px-8 py-2 rounded-full text-white  font-semibold border-2 text-sm transition duration-300 {
+                      ${activeFilter === category.tabName}
+                        ? "bg-primary  border-primary"
+                        : "bg-transparent border-primary hover:text-black hover:bg-primary "
+                    }`}
+                    onClick={() => handleFilterChange(category.tabName)}
+                  >
+                    {category.tabName}
+                  </button>
+                ))}
+                <form className=" max-w-xs text-balck ">
+                <select className="px-8 py-2 rounded-full font-semibold border-primary focus:outline-none border-2 text-sm transition cursor-pointer  duration-300 bg-transparent text-white">
+                  <option value="0" className="text-black">English</option>
+                  <option value="1" className="text-black">Blueray</option>
+                  <option value="2" className="text-black">4k Movie</option>
+                  <option value="3" className="text-black">Hd Movie</option>
+                </select>
+              </form>
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
 
-const MovieGrid = () => {
-  const movies = [
-    { title: 'Women\'s Day', date: '2022', quality: 'HD', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster01.jpg', link: '/movie-details' },
-    { title: 'The Perfect Match', date: '2022', quality: '2K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster02.jpg', link: '/movie-details' },
-    { title: 'The Dog Woof', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster03.jpg', link: '/movie-details' },
-    { title: 'The Easy Reach', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster04.jpg', link: '/movie-details' },
-    { title: 'The Cooking', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster05.jpg', link: '/movie-details' },
-    { title: 'The Hikaru', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster06.jpg', link: '/movie-details' },
-    { title: 'Life Quotes', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster07.jpg', link: '/movie-details' },
-    { title: 'The Beachball', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster08.jpg', link: '/movie-details' },
-    { title: 'The Beachball', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster09.jpg', link: '/movie-details' },
-    { title: 'The Beachball', date: '2021', quality: '4K', duration: '128 min', rating: '3.5', imgSrc: 'https://movflxx.netlify.app/img/poster/ucm_poster10.jpg', link: '/movie-details' },
+        {/* Movie Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filteredMovies.map((movie) => (
+            <div key={movie.title} className="overflow-hidden shadow-lg cursor-pointer">
+              <div className="relative">
+                <img
+                  src={movie.image}
+                  alt={movie.title}
+                  className="w-full h-full object-cover rounded hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-3">
+                <div className="text-white font-semibold truncate flex justify-between">
+                  <h3>{movie.title}</h3>
+                  <span className="text-primary">{movie.year}</span>
+                </div>
 
-  ];
+                <div className="text-white pt-2 text-xs flex justify-between">
+                  <div>
+                    <span className="bg-transparent font-bold border-2 border-white text-primary px-2 py-[2px]">
+                      {movie.quality}
+                    </span>
+                  </div>
+                  <div className="flex gap-3 text-[#bcbcbc] text-sm font-bold">
+                    <span className="flex items-center">
+                      <MdAccessTime className="mr-2 text-primary" />
+                      {movie.duration} min
+                    </span>
+                    <span className="flex items-center">
+                      <FaThumbsUp className="mr-2 text-primary" />
+                      {movie.rating}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <Pagination/>
+      </section>
+    );
+  };
 
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {movies.map((movie, index) => (
-        <MovieCard 
-          key={index}
-          title={movie.title}
-          date={movie.date}
-          quality={movie.quality}
-          duration={movie.duration}
-          rating={movie.rating}
-          imgSrc={movie.imgSrc}
-          link={movie.link}
-        />
-      ))}
-    </div>
-  );
-};
-
-export default MovieGrid;
+  export default MovieGridWithFilter;

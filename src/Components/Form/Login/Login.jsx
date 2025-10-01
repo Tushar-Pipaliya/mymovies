@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavbarForForm from '../NavbarForForm/NavbarForForm.jsx';
+import formbg from '../../../assets/formbg.jpg';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
 
 const Login = () => {
     const navigate = useNavigate();
@@ -9,102 +11,101 @@ const Login = () => {
         password: ""
     });
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // Add state for password visibility
 
-    const handleLogin = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+        setError("");
 
-        // Basic Validation
         if (!input.email || !input.password) {
-            setError("Please enter both email and password");
+            setError('Please fill in all fields');
             return;
         }
 
-        // Get all users from localStorage
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-
-        // Find user with matching email
-        const loggedInUser = users.find(user => user.email === input.email);
-
-        // Check if user exists and password matches
-        if (!loggedInUser) {
-            setError("No account found with this email, please sign up first");
+        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = existingUsers.find(user => user.email === input.email);
+        if (!user) {
+            setError('Email not found');
             return;
         }
 
-        if (loggedInUser.password === input.password) {
-            // Set the logged-in status in localStorage
-            localStorage.setItem("loggedin", true);
-            localStorage.setItem("loggedinUser", JSON.stringify(loggedInUser));  // Save user details
-
-            // Redirect to home or dashboard
-            navigate("/Home");
-        } else {
-            setError("Wrong password");
+        if (user.password !== input.password) {
+            setError('Incorrect password');
+            return;
         }
+
+        localStorage.setItem("loggedinUser", JSON.stringify(user));
+        localStorage.setItem("loggedin", true);
+        navigate("/Home");
+    };
+
+    const handleInputChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value,
+        });
+        setError(""); 
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword); // Toggle password visibility
     };
 
     return (
-
-        <div>
-        <NavbarForForm/>
-            <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-                    <form onSubmit={handleLogin}>
-                        <div className="text-center mb-6">
-                            <p className="text-2xl font-semibold text-gray-700">Log In</p>
-                        </div>
-
-                        {/* Error Message Display */}
-                        {error && (
-                            <div className="text-center mb-4 text-red-500 text-sm">
-                                <p>{error}</p>
+        <div className='min-h-screen'>
+            <div className=' bg-left w-full bg-cover overflow-hidden min-h-screen px-12' style={{ backgroundImage: `url(${formbg})` }} id="Header">
+                <NavbarForForm />
+                <div className="flex justify-end items-center ">
+                    <div className="w-full max-w-md rounded-lg shadow-md ">
+                        <form className="border-2 rounded-lg border-primary px-8 py-10 bg-[#1f1e24] mt-8" onSubmit={handleSubmit}>
+                            <div className="text-center mb-6">
+                                <p className="text-2xl text-white uppercase ">Log in</p>
                             </div>
-                        )}
-
-                        <div className="space-y-4">
-                            <div>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Enter your Email"
-                                    onChange={(e) => setInput({
-                                        ...input,
-                                        [e.target.name]: e.target.value,
-                                    })}
-                                    value={input.email}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
+                            {error && <p className="text-red-100 text-center mb-2 ">{error}</p>}
+                            <div className="space-y-4">
+                                <div>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Enter your Email"
+                                        onChange={handleInputChange}
+                                        value={input.email}
+                                        className="w-full px-4 py-2 rounded-lg focus:outline-none"
+                                    />
+                                </div>
+                                <div className="relative">
+                                    <input
+                                        type={showPassword ? "text" : "password"} // Toggle input type
+                                        name="password"
+                                        placeholder="Enter your Password"
+                                        onChange={handleInputChange}
+                                        value={input.password}
+                                        className="w-full px-4 py-2 rounded-lg focus:outline-none"
+                                    />
+                                    <span 
+                                        onClick={togglePasswordVisibility} 
+                                        className="absolute right-3 top-3 cursor-pointer">
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </span>
+                                </div>
+                                <div className="text-center mt-4">
+                                    <p className="text-sm text-white ">
+                                        Don't have an account?{" "}
+                                        <Link to="/" className="text-primary hover:underline">Sign Up</Link>
+                                    </p>
+                                </div>
+                                <div className="mt-6">
+                                    <button type="submit" className="uppercase w-full py-2 bg-primary text-black font-semibold rounded-lg focus:outline-none">
+                                        Log in
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="Enter your Password"
-                                    onChange={(e) => setInput({
-                                        ...input,
-                                        [e.target.name]: e.target.value,
-                                    })}
-                                    value={input.password}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
-                            <div className="text-center mt-4">
-                                <p className="text-sm text-gray-500">
-                                    Don't have an account?{" "}
-                                    <Link to="/" className="text-blue-600 hover:text-blue-800">Sign Up</Link>
-                                </p>
-                            </div>
-                            <div className="mt-6">
-                                <button type="submit" className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    Log In
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default Login;
