@@ -19,7 +19,7 @@ const Footer = () => (
     <div className=" ">
       {/* Top section with logo and nav links */}
       <div className="flex px-4 mx-4 flex-wrap items-center pb-9 border-b-2 border-b-[#12151e] shadow-[0px_1px_0px_0px_rgba(143,143,143,0.14)]">
-        <Link to="/" className="w-full sm:w-1/4 text-center sm:text-left">
+        <Link to="/Home" className="w-full sm:w-1/4 text-center sm:text-left">
           <img src={logo} alt="Logo" className="mx-auto sm:mx-0" />
         </Link>
         <nav className="w-full  sm:w-3/4 mt-5 sm:mt-0">
@@ -72,7 +72,7 @@ const Footer = () => (
           {/* Copyright Text */}
           <div className="w-full sm:w-1/2 text-center sm:text-left">
             <p className="text-sm text-[#bcbcbc] font-semibold">
-              Copyright © 2025. All Rights Reserved By <Link to="/" className="text-primary hover:underline">Movflx</Link>
+              Copyright © 2025. All Rights Reserved By <Link to="/Home" className="text-primary hover:underline">Movflx</Link>
             </p>
           </div>
 

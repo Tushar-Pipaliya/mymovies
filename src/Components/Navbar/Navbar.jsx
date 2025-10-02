@@ -43,7 +43,7 @@ function Navbar() {
             <div className="flex justify-between items-center text-secondary uppercase">
                 {/* Logo */}
                 <div className="flex items-center">
-                    <NavLink to="/">
+                    <NavLink to="/Home">
                         <img src={logo} alt="Logo" className="h-10" />
                     </NavLink>
                 </div>
