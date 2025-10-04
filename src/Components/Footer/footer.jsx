@@ -38,7 +38,7 @@ const Footer = () => (
                 className="focus:outline-none w-full sm:w-72 border-0 bg-[#12151e] text-white p-4 px-6 text-sm rounded-full pr-20 shadow-[inset_0px_4px_9px_0px_rgba(0,0,0,0.25)]"
               />
               <button className="absolute right-5 top-1/2 -translate-y-1/2 border-0 bg-transparent text-sm text-primary p-0">
-                <FaSearch />
+                <Link to={"/Home"}><FaSearch /></Link>
               </button>
             </form>
           </ul>
