@@ -13,22 +13,22 @@ import ProtectRoute from './Components/ProtectRoute/ProtectRoute.jsx';
 import Loader from './Components/Loader/Loader.jsx';
 
 function App() {
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   // Simulate a delay to show the loader for 6 seconds
-  //   const timeoutId = setTimeout(() => {
-  //     setIsLoading(false); // Hide loader after 6 seconds
-  //   }, 6000);
+  useEffect(() => {
+    // Simulate a delay to show the loader for 6 seconds
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false); // Hide loader after 6 seconds
+    }, 6000);
 
-  //   // Clean up the timeout on component unmount
-  //   return () => clearTimeout(timeoutId);
-  // }, []);
+    // Clean up the timeout on component unmount
+    return () => clearTimeout(timeoutId);
+  }, []);
 
-  // // If still loading, show the Loader component
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  // If still loading, show the Loader component
+  if (isLoading) {
+    return <Loader />;
+  }
 
   // Define the router after the loading state is finished
   const router = createBrowserRouter([

@@ -6,7 +6,7 @@ import logo from '../../assets/logo.png'
 import payment from '../../assets/payment.png'  // Assuming the image path is correct.
 
 const MenuLinks = [
-  { name: 'Home', link: '/' },
+  { name: 'Home', link: '/Home' },
   { name: 'Movie', link: '/Movie' },
   { name: 'Tv Show', link: '/TvShow' },
   { name: 'Pricing', link: '/Pricing' },
